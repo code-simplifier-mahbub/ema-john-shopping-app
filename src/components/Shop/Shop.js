@@ -1,18 +1,14 @@
-import React, { useEffect, useState } from "react";
 import './Shop.css'
 import Product from "../Product/Product";
 import Cart from "../Cart/Cart";
+import { useLoaderData } from "react-router-dom";
+import { useState } from 'react';
 
 const Shop = () => {
 
-    const [products, setProducts] = useState([]);
+    const products = useLoaderData();
     const [cart, setCart] = useState([]);
 
-    useEffect( ()=> {
-        fetch('products.json')
-        .then(res=> res.json())
-        .then(data => setProducts(data))
-    },[])
 
     const handleAddToCart = (product) => {
       console.log(product)
@@ -23,10 +19,10 @@ const Shop = () => {
     <div className="shop-container">
       <div className="products-container">
         {
-          products.map(product=> <Product
-          key={product.id}
-          product={product}
-          handleAddToCart={handleAddToCart}
+          products.map(product => <Product
+            key={product.id}
+            product={product}
+            handleAddToCart={handleAddToCart}
           ></Product>)
         }
       </div>
