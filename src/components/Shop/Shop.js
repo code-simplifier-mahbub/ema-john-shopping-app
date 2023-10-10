@@ -1,15 +1,19 @@
 import "./Shop.css";
 import Product from "../Product/Product";
 import Cart from "../Cart/Cart";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { addToDb, getStoredCart } from "../../utilities/fakedb";
+import {
+  addToDb,
+  deleteShoppingCart,
+  getStoredCart,
+} from "../../utilities/fakedb";
 
 const Shop = () => {
   //without useEffect,, we can use there  useLoaderData Hook for Products
   // loader come from router in app.js file
   const { products, initialCart } = useLoaderData();
-  const [cart, setCart] = useState(initialCart)
+  const [cart, setCart] = useState(initialCart);
   // const [cart, setCart] = useState([]);
 
   // useEffect(() => {
@@ -45,6 +49,11 @@ const Shop = () => {
     addToDb(selectedProduct.id);
   };
 
+  const handleClearCart = () => {
+    setCart([]);
+    deleteShoppingCart();
+  };
+
   return (
     <div className="shop-container">
       <div className="products-container">
@@ -57,7 +66,11 @@ const Shop = () => {
         ))}
       </div>
       <div className="cart-container">
-        <Cart cart={cart}></Cart>
+        <Cart cart={cart} handleClearCart={handleClearCart}>
+          <Link to='/order'>
+            <button>Review Order</button>
+          </Link>
+        </Cart>
       </div>
     </div>
   );

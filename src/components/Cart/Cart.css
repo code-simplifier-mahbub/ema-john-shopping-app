@@ -5,3 +5,13 @@
 .cart p{
     font-size: 20px;
 }
+.clear-cart{
+    background-color: #FF3030;
+    color: #fff;
+    border: 0;
+    padding: 10px;
+    width: 100%;
+    font-size: 18px;
+    display: flex;
+    justify-content: space-between;
+}
